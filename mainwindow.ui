@@ -17,8 +17,8 @@
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>20</y>
+      <x>0</x>
+      <y>0</y>
       <width>400</width>
       <height>1200</height>
      </rect>
@@ -26,34 +26,11 @@
     <property name="currentIndex">
      <number>0</number>
     </property>
-    <widget class="QWidget" name="page"/>
-    <widget class="QWidget" name="page_3"/>
-    <widget class="QWidget" name="page_4"/>
-    <widget class="QWidget" name="page_5"/>
-    <widget class="QWidget" name="page_2"/>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>30</y>
-      <width>111</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border: 2px solid #555;
-border-radius: 10px;
-padding: 5px;
-font-size: 16px;
-font-weight: bold;</string>
-    </property>
-    <property name="text">
-     <string>PushButton</string>
-    </property>
-    <property name="ShowProgress" stdset="0">
-     <bool>true</bool>
-    </property>
+    <widget class="M_API" name="page"/>
+    <widget class="M_Plan" name="page_3"/>
+    <widget class="M_Progress" name="page_4"/>
+    <widget class="M_Congrats" name="page_5"/>
+    <widget class="M_PlanGeneration" name="page_2"/>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -68,6 +45,38 @@ font-weight: bold;</string>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>M_API</class>
+   <extends>QWidget</extends>
+   <header>ui_m_api.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>M_Plan</class>
+   <extends>QWidget</extends>
+   <header>ui_m_plan.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>M_PlanGeneration</class>
+   <extends>QWidget</extends>
+   <header>ui_m_plangeneration.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>M_Progress</class>
+   <extends>QWidget</extends>
+   <header>ui_m_progress.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>M_Congrats</class>
+   <extends>QWidget</extends>
+   <header>ui_m_congrats.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

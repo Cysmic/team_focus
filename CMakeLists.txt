@@ -31,15 +31,23 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 
 
         constants_types.h
-        m_api.h m_api.cpp
-        m_plangeneration.h m_plangeneration.cpp
-        m_plan.h m_plan.cpp
-        m_progress.h m_progress.cpp
-        m_congrats.h m_congrats.cpp
+
+
+
+
+
         notionmanager.h notionmanager.cpp
         datamanager.h datamanager.cpp
         utility_functions.h
         includes.h
+
+
+        m_api.h m_api.cpp m_api.ui
+        m_congrats.h m_congrats.cpp m_congrats.ui
+        m_plan.h m_plan.cpp m_plan.ui
+        m_plangeneration.h m_plangeneration.cpp m_plangeneration.ui
+        m_progress.h m_progress.cpp m_progress.ui
+
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET Team_Focus APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

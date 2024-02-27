@@ -1,6 +1,7 @@
 #ifndef INCLUDES_H
 #define INCLUDES_H
 #include <string>
+#include <queue>
 #include <QWidget>
 #include <QMainWindow>
 #include <QStackedWidget>

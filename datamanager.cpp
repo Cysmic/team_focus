@@ -22,6 +22,7 @@ bool DataManager::retrieveSaveData(){
     API_KEY = j["API_KEY"];
     DATABASE = j["DATABASE"];
     plan = j["plan"];
+    history = j["history"];
     this->notionManager->fetchTasks(DATABASE, API_KEY, tasks);
     //j["tags_tasks"].get<std::unordered_map<std::string, std::vector<std::string>>>(); // maybe remove this?
 
@@ -71,6 +72,7 @@ void DataManager::saveData(){
     j["API_KEY"] = API_KEY;
     j["DATABASE"] = DATABASE;
     j["plan"] = plan;
+    j["history"] = history;
     //j["tags_tasks"] = tags_tasks;
 
     std::string saveFile = getSaveFilePath(); //gets file save path and create directory if necessary
@@ -84,6 +86,8 @@ void DataManager::markTaskAsComplete(std::string task){
         if (item.taskName == task){
             item.status = "Done";
             this->notionManager->updateTask(API_KEY, item);
+
+            this->history.push_back(createTaskString_History(item, getCurrentDate(), 3));
             return;
         }
     }

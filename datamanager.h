@@ -14,7 +14,7 @@ private:
     // task |;;| date created |;;;| date completed |;;;;| points awarded |;;;;;| priority level |;;;;;;|
     // we will use nlohmann/json library for serialization/deserialization of the map above
     std::vector<std::string> plan;
-    std::vector<std::string> history;
+    std::vector<std::string> history; // keeping this as vector instead of queue bc of nlohmann/json
 
     std::string API_KEY;
     std::string DATABASE;
