@@ -20,8 +20,16 @@ public:
     ~M_Plan();
 
     void fillPlanList(std::vector<std::string> plan); //slot
+    void sendSaveDataSignal(); //slot
+
+    void ChangeMenuToProgress(); //slot
+
+    void resetPlan(); // slot
 
 signals:
+    void saveDataSignal(std::vector<std::string> completedTasks);
+    void ChangeMenu(Menu menu);
+    void ResetPlan();
 };
 
 #endif // M_PLAN_H

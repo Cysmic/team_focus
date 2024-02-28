@@ -26,20 +26,7 @@
     <number>24</number>
    </property>
   </widget>
-  <widget class="QProgressBar" name="WeeklyProgress">
-   <property name="geometry">
-    <rect>
-     <x>90</x>
-     <y>100</y>
-     <width>221</width>
-     <height>71</height>
-    </rect>
-   </property>
-   <property name="value">
-    <number>24</number>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="Title">
    <property name="geometry">
     <rect>
      <x>80</x>
@@ -55,24 +42,11 @@
     <string>your progress so far</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="ViewSchedule">
    <property name="geometry">
     <rect>
-     <x>140</x>
-     <y>180</y>
-     <width>100</width>
-     <height>32</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>take a rest day</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_2">
-   <property name="geometry">
-    <rect>
-     <x>140</x>
-     <y>500</y>
+     <x>150</x>
+     <y>510</y>
      <width>100</width>
      <height>32</height>
     </rect>
@@ -81,27 +55,7 @@
     <string>View Schedule</string>
    </property>
   </widget>
-  <widget class="QListView" name="listView">
-   <property name="geometry">
-    <rect>
-     <x>70</x>
-     <y>270</y>
-     <width>256</width>
-     <height>192</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QListWidget {
-        background: #323232; /* Set background color */
-        border: none; /* Remove border */
-    }
-
-    QListWidget::item:selected {
-        background: darkgray; /* Background color for selected item */
-    }</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QLabel" name="History_title">
    <property name="geometry">
     <rect>
      <x>80</x>
@@ -115,6 +69,26 @@
    </property>
    <property name="text">
     <string>History</string>
+   </property>
+  </widget>
+  <widget class="QListWidget" name="HistoryList">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>270</y>
+     <width>221</width>
+     <height>221</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QListWidget {
+        background: #323232; /* Set background color */
+        border: none; /* Remove border */
+    }
+
+    QListWidget::item:selected {
+        background: darkgray; /* Background color for selected item */
+    }</string>
    </property>
   </widget>
  </widget>

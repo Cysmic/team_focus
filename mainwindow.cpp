@@ -17,8 +17,14 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->plangeneration_m, &M_PlanGeneration::ChangeMenu, this, &MainWindow::ChangeMenu);
     connect(ui->plangeneration_m, &M_PlanGeneration::sendPlanInfo, this->dataManager, &DataManager::receivePlanInfo);
 
+    connect(ui->plan_m, &M_Plan::ChangeMenu, this, &MainWindow::ChangeMenu);
+    connect(this->dataManager, &DataManager::planUpdated, ui->plan_m, &M_Plan::fillPlanList);
+    connect(ui->plan_m, &M_Plan::saveDataSignal, this->dataManager, &DataManager::updateTasksInNotion);
+    connect(ui->plan_m, &M_Plan::ResetPlan, this->dataManager, &DataManager::resetPlan);
 
-
+    connect(ui->progress_m, &M_Progress::ChangeMenu, this, &MainWindow::ChangeMenu);
+    connect(this->dataManager, &DataManager::historyUpdated, ui->progress_m, &M_Progress::HistoryUpdated);
+    connect(this->dataManager, &DataManager::planUpdated, ui->progress_m, &M_Progress::setMaxPoints);
     //------------------------
 
     if (this->dataManager->retrieveSaveData()){

@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="Title">
    <property name="geometry">
     <rect>
      <x>110</x>
@@ -29,7 +29,7 @@
     <string>Your Schedule</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QLabel" name="Plan_Title">
    <property name="geometry">
     <rect>
      <x>140</x>
@@ -45,7 +45,7 @@
     <string>Today's Plan</string>
    </property>
   </widget>
-  <widget class="QListWidget" name="listWidget">
+  <widget class="QListWidget" name="PlanList">
    <property name="geometry">
     <rect>
      <x>70</x>
@@ -65,30 +65,43 @@
     }</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="Reset_Plan">
    <property name="geometry">
     <rect>
-     <x>140</x>
-     <y>460</y>
-     <width>100</width>
-     <height>32</height>
+     <x>130</x>
+     <y>490</y>
+     <width>121</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="text">
-    <string>Start Timer</string>
+    <string>Reset Plan</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="View_Progress">
    <property name="geometry">
     <rect>
      <x>140</x>
-     <y>530</y>
+     <y>540</y>
      <width>100</width>
-     <height>32</height>
+     <height>41</height>
     </rect>
    </property>
    <property name="text">
     <string>View Progress</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Submit">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>450</y>
+     <width>100</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Submit</string>
    </property>
   </widget>
  </widget>

@@ -19,12 +19,13 @@ inline std::vector<std::string> split(const std::string &s, const std::string &d
 }
 
 inline std::string createTaskString_Plan(Task task){
-    return task.taskName + " |TASK| " + task.tag + " |TAG| " + task.dueDate + " |DUEDATE| " + task.status + " |STATUS| " + std::to_string(task.priority) + " |PRIORITY| ";
+    return task.taskName + " |TASK| " + task.tag + " |TAG| " + task.dueDate + " |DUEDATE| " + task.status + " |STATUS| " + std::to_string(task.priority) + " |PRIORITY| " + task.id + " |ID| ";
 }
 
 inline std::string createTaskString_History(Task task, std::string dateCompleted, int points){
-    return task.taskName + " |TASK| " + task.tag + " |TAG| " + dateCompleted + " |DATECOMPLETED| " + std::to_string(points) + " |POINTS| " + std::to_string(task.priority) + " |PRIORITY| ";
+    return task.taskName + " |TASK| " + task.tag + " |TAG| " + task.dueDate + " |DUEDATE| " + task.status + " |STATUS| " + std::to_string(task.priority) + " |PRIORITY| " + task.id + " |ID| " + dateCompleted + " |DATECOMPLETED| " + std::to_string(points) + " |POINTS| ";
 }
+
 
 // For parsing the task string
 inline std::string getTask(std::string task) {
@@ -33,33 +34,54 @@ inline std::string getTask(std::string task) {
 
 inline std::string getTag(std::string task) {
     std::vector<std::string> parts = split(task, " |TAG| ");
-    return parts.size() > 1 ? parts[1] : "";
+    return parts.size() > 1 ? split(parts[0], " |TASK| ")[1] : "";
 }
 
 inline std::string getDueDate(std::string task) {
     std::vector<std::string> parts = split(task, " |DUEDATE| ");
-    return parts.size() > 1 ? parts[1] : "";
+    return parts.size() > 1 ? split(parts[0], " |TAG| ")[1] : "";
 }
 
 inline std::string getStatus(std::string task) {
     std::vector<std::string> parts = split(task, " |STATUS| ");
-    return parts.size() > 1 ? parts[1] : "";
-}
-
-inline std::string getDateCompleted(std::string task) {
-    std::vector<std::string> parts = split(task, " |DATECOMPLETED| ");
-    return parts.size() > 1 ? parts[1] : "";
-}
-
-inline std::string getPoints(std::string task) {
-    std::vector<std::string> parts = split(task, " |POINTS| ");
-    return parts.size() > 1 ? parts[1] : "";
+    return parts.size() > 1 ? split(parts[0], " |DUEDATE| ")[1] : "";
 }
 
 inline std::string getPriority(std::string task) {
     std::vector<std::string> parts = split(task, " |PRIORITY| ");
-    return parts.size() > 1 ? parts[1] : "";
+    return parts.size() > 1 ? split(parts[0], " |STATUS| ")[1] : "";
 }
+
+inline std::string getID(std::string task) {
+    std::vector<std::string> parts = split(task, " |ID| ");
+    return parts.size() > 1 ? split(parts[0], " |PRIORITY| ")[1] : "";
+}
+
+inline std::string getDateCompleted(std::string task) {
+    std::vector<std::string> parts = split(task, " |DATECOMPLETED| ");
+    return parts.size() > 1 ? split(parts[0], " |ID| ")[1] : "";
+}
+
+inline std::string getPoints(std::string task) {
+    std::vector<std::string> parts = split(task, " |POINTS| ");
+    return parts.size() > 1 ? split(parts[0], " |DATECOMPLETED| ")[1] : "";
+}
+
+
+
+inline Task createTaskFromString(std::string task_string){
+    Task task;
+    task.taskName = getTask(task_string);
+    task.dueDate = getDueDate(task_string);
+    task.id = getID(task_string);
+    std::cout << "id:" << task_string << "here" << std::endl;
+    task.priority = atoi(getPriority(task_string).c_str());
+    task.status = getStatus(task_string);
+    task.tag = getTag(task_string);
+
+    return task;
+}
+
 // ----------------------------
 
 // Additional utility functions

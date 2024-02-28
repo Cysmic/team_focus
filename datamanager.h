@@ -36,9 +36,14 @@ public:
 
     void receivePlanInfo(std::vector<std::string> filters, int numTasks); //slot
 
+    void updateTasksInNotion(std::vector<std::string> completedTasks); // slot for when user submits tasks from plan
+
+    void resetPlan();
+
 signals:
     void tasksUpdated(std::vector<Task> tasksUpdated);
     void planUpdated(std::vector<std::string> planUpdated);
+    void historyUpdated(std::vector<std::string> historyUpdated);
     void ChangeMenu(Menu menu);
 };
 

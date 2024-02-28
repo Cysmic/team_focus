@@ -96,6 +96,7 @@ void NotionManager::onTasksFetched(QNetworkReply* reply, std::vector<Task>& task
 }
 
 void NotionManager::updateTask(std::string API_TOKEN, Task task){
+    std::cout << "are there spaces for this task?" << task.id << "what about here" << std::endl;
     std::string url_string = "https://api.notion.com/v1/pages/" + task.id;
     std::string bearer = "Bearer " + API_TOKEN;
 

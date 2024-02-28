@@ -26,6 +26,8 @@ bool DataManager::retrieveSaveData(){
 
     if (plan.size() > 0)
         emit this->planUpdated(this->plan);
+    if (history.size() > 0)
+        emit this->historyUpdated(this->history);
 
     this->notionManager->fetchTasks(DATABASE, API_KEY, tasks);
     emit this->tasksUpdated(this->tasks);
@@ -39,36 +41,38 @@ bool DataManager::hasValidPlan(){
     return true;
 }
 
+// this function is broken for some reason
 void DataManager::updateData(){
+    this->tasks.clear();
     this->notionManager->fetchTasks(this->DATABASE, this->API_KEY, tasks);
 
     emit this->tasksUpdated(this->tasks); // sends signal that tasks data structure updated
 
-    // perform check here to see if plan needs updating and add/subtract from current plan.
-    std::vector<std::string> taskNames;
-    std::vector<std::string> newPlan;
-    std::vector<std::string> newTasks;
-    std::unordered_map<std::string, std::string> planHash;
+    // // perform check here to see if plan needs updating and add/subtract from current plan.
+    // std::vector<std::string> taskNames;
+    // std::vector<std::string> newPlan;
+    // std::vector<std::string> newTasks;
+    // std::unordered_map<std::string, std::string> planHash;
 
-    for (std::string task : this->plan){
-        taskNames.push_back(getTask(task));
-        planHash[taskNames.back()] = task;
-    }
+    // for (std::string task : this->plan){
+    //     taskNames.push_back(getTask(task));
+    //     planHash[getID(task)] = task;
+    // }
 
-    for (Task task : this->tasks){
-        if (!planHash.at(task.taskName).empty()){
-            newPlan.push_back(createTaskString_Plan(task));
-        }
-        else{
-            newTasks.push_back(createTaskString_Plan(task));
-        }
-    }
+    // for (Task task : this->tasks){
+    //     if (planHash.find(task.id) != planHash.end()){
+    //         newPlan.push_back(createTaskString_Plan(task));
+    //     }
+    //     else{
+    //         newTasks.push_back(createTaskString_Plan(task));
+    //     }
+    // }
 
-    newPlan.insert(newPlan.end(), newTasks.begin(), newTasks.end()); // appends new tasks to the end. current method removes tasks that do not belong in plan
+    // newPlan.insert(newPlan.end(), newTasks.begin(), newTasks.end()); // appends new tasks to the end. current method removes tasks that do not belong in plan
 
-    this->plan = newPlan;
+    // this->plan = newPlan;
 
-    emit this->planUpdated(this->plan); // sends signal that plan has been updated
+    // emit this->planUpdated(this->plan); // sends signal that plan has been updated
 }
 
 void DataManager::saveData(){
@@ -110,7 +114,9 @@ void DataManager::setAPI_Database(std::string API, std::string Database){
 void DataManager::receivePlanInfo(std::vector<std::string> filters, int numTasks){
     // will just do brute force for this.
 
-    for (int i = 0; i < numTasks; i++){
+    int trueNumTasks = (numTasks >= filters.size()) ? filters.size() : numTasks;
+
+    for (int i = 0; i < trueNumTasks; i++){
         for (int j = 0; j<this->tasks.size(); j++){
             std::string prior = "";
             switch (tasks[j].priority){
@@ -124,10 +130,60 @@ void DataManager::receivePlanInfo(std::vector<std::string> filters, int numTasks
                 prior = "***";
                 break;
             }
-
-            if (filters[i] == this->tasks[j].tag || filters[i] == prior){
-                this->plan.push_back(createTaskString_Plan(tasks[j])); //maybe need to break?
+            if (filters[i] == this->tasks[j].tag || filters[i] == prior){ // its 3:21 AM. i am writing trash
+                bool alreadyExists = false;
+                for (int k = 0; k < this->plan.size(); k++){
+                    if (getID(this->plan[k]) == this->tasks[j].id){
+                        alreadyExists = true;
+                        break;
+                    }
+                }
+                if (!alreadyExists){
+                    this->plan.push_back(createTaskString_Plan(tasks[j])); // revisit the encoding of this perhaps
+                }
             }
         }
     }
+    this->saveData();
+    emit this->planUpdated(this->plan);
+}
+
+void DataManager::updateTasksInNotion(std::vector<std::string> completedTasks){
+    for (std::string task_string : completedTasks){
+        Task task_fromString = createTaskFromString(task_string);
+        this->notionManager->updateTask(this->API_KEY, task_fromString);
+    }
+
+    std::vector<std::string> newPlan;
+
+    for (int i = 0; i<this->plan.size(); i++){
+        bool taskCompleted = false;
+        for (int j = 0; j < completedTasks.size(); j++){
+            if (getID(this->plan[i]) == getID(completedTasks[j])){
+                taskCompleted = true;
+            }
+        }
+
+        if (!taskCompleted)
+            newPlan.push_back(this->plan[i]);
+    }
+
+    this->plan = newPlan;
+    emit this->planUpdated(this->plan);
+
+    // Make changes to history:
+    for (std::string task_string : completedTasks){
+        std::string historyString = task_string + getCurrentDate() + " |DATECOMPLETED| " + getPriority(task_string) + " |POINTS| ";
+        this->history.push_back(historyString);
+    }
+
+    emit this->historyUpdated(this->history);
+
+    this->saveData();
+}
+
+void DataManager::resetPlan(){
+    this->plan.clear();
+    //this->updateData();
+    emit this->planUpdated(this->plan);
 }
