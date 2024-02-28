@@ -32,9 +32,12 @@ public:
 
     void markTaskAsComplete(std::string task); // would still require searching through vector, but who cares
 
+    void setAPI_Database(std::string API, std::string Database);
+
 signals:
     void tasksUpdated();
     void planUpdated();
+    void ChangeMenu(Menu menu);
 };
 
 #endif // DATAMANAGER_H

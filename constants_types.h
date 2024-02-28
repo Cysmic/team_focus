@@ -11,4 +11,12 @@ struct Task{
     int priority;
 };
 
+enum Menu{
+    API_M = 0,
+    PLAN_M = 1,
+    PROGRESS_M = 2,
+    CONGRATS_M = 3,
+    PLANGENERATION_M = 4
+};
+
 #endif // CONSTANTS_TYPES_H

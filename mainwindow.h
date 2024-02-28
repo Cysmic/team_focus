@@ -23,9 +23,10 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void ChangeMenu(Menu menu);
+
 private:
     Ui::MainWindow *ui;
-    QStackedWidget *stackedWidget;
     DataManager *dataManager;
 };
 #endif // MAINWINDOW_H

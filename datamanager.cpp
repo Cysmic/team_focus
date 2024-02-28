@@ -24,8 +24,6 @@ bool DataManager::retrieveSaveData(){
     plan = j["plan"];
     history = j["history"];
     this->notionManager->fetchTasks(DATABASE, API_KEY, tasks);
-    //j["tags_tasks"].get<std::unordered_map<std::string, std::vector<std::string>>>(); // maybe remove this?
-
     inFile.close();
     return true;
 }
@@ -73,7 +71,6 @@ void DataManager::saveData(){
     j["DATABASE"] = DATABASE;
     j["plan"] = plan;
     j["history"] = history;
-    //j["tags_tasks"] = tags_tasks;
 
     std::string saveFile = getSaveFilePath(); //gets file save path and create directory if necessary
     std::ofstream outFile(saveFile);
@@ -91,4 +88,15 @@ void DataManager::markTaskAsComplete(std::string task){
             return;
         }
     }
+}
+
+void DataManager::setAPI_Database(std::string API, std::string Database){
+    this->API_KEY = API;
+    this->DATABASE = Database;
+    this->saveData();
+    this->retrieveSaveData();
+    emit ChangeMenu(Menu::PLANGENERATION_M);
+
+    std::cout << "API AND DATABASE SET" << std::endl;
+    //emit signal here for mainmenu to switch again? or perhaps do that via submit signal emission.
 }

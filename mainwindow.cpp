@@ -6,20 +6,26 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->stackedWidget = ui->stackedWidget;
+    this->dataManager = new DataManager();
 
     //Slot/signal connections initialization here: - between menu signal emissions and slots for here and the data manager
+    connect(ui->api_m, &M_API::sendKey_ID, this->dataManager, &DataManager::setAPI_Database);
+    connect(this->dataManager, &DataManager::ChangeMenu, this, &MainWindow::ChangeMenu);
 
 
     //------------------------
-    this->dataManager = new DataManager();
+
     if (this->dataManager->retrieveSaveData()){
-        if (this->dataManager->hasValidPlan()) this->stackedWidget->setCurrentIndex(2); // puts on plan page
-        else this->stackedWidget->setCurrentIndex(1); // puts on generate plan page
-    }else this->stackedWidget->setCurrentIndex(0); // puts it on the enter api page
+        if (this->dataManager->hasValidPlan()) ui->stackedWidget->setCurrentIndex(Menu::PLAN_M); // puts on plan page
+        else ui->stackedWidget->setCurrentIndex(Menu::PLANGENERATION_M); // puts on generate plan page
+    }else ui->stackedWidget->setCurrentIndex(Menu::API_M); // puts it on the enter api page
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::ChangeMenu(Menu menu){
+    ui->stackedWidget->setCurrentIndex(menu);
 }

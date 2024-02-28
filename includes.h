@@ -6,6 +6,7 @@
 #include <QMainWindow>
 #include <QStackedWidget>
 #include <QObject>
+#include <QEventLoop>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QNetworkRequest>

@@ -43,13 +43,24 @@ void NotionManager::fetchTasks(std::string database, std::string API_TOKEN, std:
     QJsonDocument doc(data);
     QByteArray jsonData = doc.toJson();
 
-    // Send the POST request with the JSON payload
+    // // Send the POST request with the JSON payload
+    // QNetworkReply* reply = networkManager->post(request, jsonData);
+
+    // //QNetworkReply* reply = networkManager->post(request, QByteArray());
+    // connect(reply, &QNetworkReply::finished, this, [this, reply, &tasks]() {
+    //     onTasksFetched(reply, tasks);
+    // });
+
+    // this is preventing it from being handled asynchronously. The commented out version above is the async version.
+    // I am doing this so that data loads before page change. what shouuld really happen is
+    // if data changes, all pages change accordingly via signal emission
     QNetworkReply* reply = networkManager->post(request, jsonData);
 
-    //QNetworkReply* reply = networkManager->post(request, QByteArray());
-    connect(reply, &QNetworkReply::finished, this, [this, reply, &tasks]() {
-        onTasksFetched(reply, tasks);
-    });
+    QEventLoop loop;
+    connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+    loop.exec();
+
+    onTasksFetched(reply, tasks);
 }
 
 void NotionManager::onTasksFetched(QNetworkReply* reply, std::vector<Task>& tasks) {
@@ -59,17 +70,26 @@ void NotionManager::onTasksFetched(QNetworkReply* reply, std::vector<Task>& task
         QJsonObject jsonObject = jsonResponse.object();
         QJsonArray resultsArray = jsonObject["results"].toArray();
 
+        std::cout << "Results Array size: " << resultsArray.size() << std::endl;
+
         for (auto result : resultsArray){
             QJsonObject obj = result.toObject();
             Task task;
             task.id = obj["id"].toString().toStdString();
-            task.taskName = obj["properties"].toObject()["Name"].toObject()["title"].toObject()["text"].toObject()["content"].toString().toStdString();
+            task.taskName = obj["properties"].toObject()["Name"].toObject()["title"].toArray()[0].toObject()["text"].toObject()["content"].toString().toStdString();
             task.dueDate = obj["properties"].toObject()["Due Date"].toObject()["date"].toObject()["start"].toString().toStdString();
             task.priority = atoi(obj["properties"].toObject()["Priority"].toObject()["select"].toObject()["name"].toString().toStdString().c_str());
             task.status = obj["properties"].toObject()["Status"].toObject()["status"].toObject()["name"].toString().toStdString();
-            task.tag = obj["properties"].toObject()["Tags"].toObject()["multi_select"].toObject()["name"].toString().toStdString();
+            // assuming here that we will only store one tag per task.
+            task.tag = obj["properties"].toObject()["Tags"].toObject()["multi_select"].toArray()[0].toObject()["name"].toString().toStdString();
 
             tasks.push_back(task);
+            std::cout << "task: " << task.taskName << std::endl;
+            std::cout << "id: " << task.id << std::endl;
+            std::cout << "due Date: " << task.dueDate << std::endl;
+            std::cout << "priority: " << task.priority << std::endl;
+            std::cout << "Status: " << task.status << std::endl;
+            std::cout << "Tag: " << task.tag << std::endl;
         }
     }
     reply->deleteLater();

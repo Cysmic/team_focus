@@ -24,13 +24,13 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>4</number>
     </property>
-    <widget class="M_API" name="page"/>
-    <widget class="M_Plan" name="page_3"/>
-    <widget class="M_Progress" name="page_4"/>
-    <widget class="M_Congrats" name="page_5"/>
-    <widget class="M_PlanGeneration" name="page_2"/>
+    <widget class="M_API" name="api_m"/>
+    <widget class="M_Plan" name="plan_m"/>
+    <widget class="M_Progress" name="progress_m"/>
+    <widget class="M_Congrats" name="congrats_m"/>
+    <widget class="M_PlanGeneration" name="plangeneration_m"/>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
