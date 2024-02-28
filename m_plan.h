@@ -19,6 +19,8 @@ public:
     explicit M_Plan(QWidget *parent = nullptr);
     ~M_Plan();
 
+    void fillPlanList(std::vector<std::string> plan); //slot
+
 signals:
 };
 

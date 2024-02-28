@@ -23,7 +23,13 @@ bool DataManager::retrieveSaveData(){
     DATABASE = j["DATABASE"];
     plan = j["plan"];
     history = j["history"];
+
+    if (plan.size() > 0)
+        emit this->planUpdated(this->plan);
+
     this->notionManager->fetchTasks(DATABASE, API_KEY, tasks);
+    emit this->tasksUpdated(this->tasks);
+
     inFile.close();
     return true;
 }
@@ -36,7 +42,7 @@ bool DataManager::hasValidPlan(){
 void DataManager::updateData(){
     this->notionManager->fetchTasks(this->DATABASE, this->API_KEY, tasks);
 
-    emit this->tasksUpdated(); // sends signal that tasks data structure updated
+    emit this->tasksUpdated(this->tasks); // sends signal that tasks data structure updated
 
     // perform check here to see if plan needs updating and add/subtract from current plan.
     std::vector<std::string> taskNames;
@@ -62,7 +68,7 @@ void DataManager::updateData(){
 
     this->plan = newPlan;
 
-    emit this->planUpdated(); // sends signal that plan has been updated
+    emit this->planUpdated(this->plan); // sends signal that plan has been updated
 }
 
 void DataManager::saveData(){
@@ -99,4 +105,29 @@ void DataManager::setAPI_Database(std::string API, std::string Database){
 
     std::cout << "API AND DATABASE SET" << std::endl;
     //emit signal here for mainmenu to switch again? or perhaps do that via submit signal emission.
+}
+
+void DataManager::receivePlanInfo(std::vector<std::string> filters, int numTasks){
+    // will just do brute force for this.
+
+    for (int i = 0; i < numTasks; i++){
+        for (int j = 0; j<this->tasks.size(); j++){
+            std::string prior = "";
+            switch (tasks[j].priority){
+            case 1:
+                prior = "*";
+                break;
+            case 2:
+                prior = "**";
+                break;
+            case 3:
+                prior = "***";
+                break;
+            }
+
+            if (filters[i] == this->tasks[j].tag || filters[i] == prior){
+                this->plan.push_back(createTaskString_Plan(tasks[j])); //maybe need to break?
+            }
+        }
+    }
 }

@@ -10,7 +10,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     //Slot/signal connections initialization here: - between menu signal emissions and slots for here and the data manager
     connect(ui->api_m, &M_API::sendKey_ID, this->dataManager, &DataManager::setAPI_Database);
+
     connect(this->dataManager, &DataManager::ChangeMenu, this, &MainWindow::ChangeMenu);
+    connect(this->dataManager, &DataManager::tasksUpdated, ui->plangeneration_m, &M_PlanGeneration::createTagList);
+
+    connect(ui->plangeneration_m, &M_PlanGeneration::ChangeMenu, this, &MainWindow::ChangeMenu);
+    connect(ui->plangeneration_m, &M_PlanGeneration::sendPlanInfo, this->dataManager, &DataManager::receivePlanInfo);
+
 
 
     //------------------------

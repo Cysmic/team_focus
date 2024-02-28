@@ -30,13 +30,15 @@ public:
     void saveData();
     void updateData();
 
-    void markTaskAsComplete(std::string task); // would still require searching through vector, but who cares
+    void markTaskAsComplete(std::string task); // would still require searching through vector, but who cares //slot
 
-    void setAPI_Database(std::string API, std::string Database);
+    void setAPI_Database(std::string API, std::string Database); //slot
+
+    void receivePlanInfo(std::vector<std::string> filters, int numTasks); //slot
 
 signals:
-    void tasksUpdated();
-    void planUpdated();
+    void tasksUpdated(std::vector<Task> tasksUpdated);
+    void planUpdated(std::vector<std::string> planUpdated);
     void ChangeMenu(Menu menu);
 };
 

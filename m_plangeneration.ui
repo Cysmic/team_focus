@@ -7,13 +7,13 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>1200</height>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="Title">
    <property name="geometry">
     <rect>
      <x>90</x>
@@ -27,6 +27,91 @@
    </property>
    <property name="text">
     <string>how's it going? </string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="TaskNum_T">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>100</y>
+     <width>271</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>How many tasks would you like to complete?</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="TaskNum_I">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>110</y>
+     <width>21</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>5</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="TagList_T">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>160</y>
+     <width>141</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Which types of tasks?</string>
+   </property>
+  </widget>
+  <widget class="QListWidget" name="TagList">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>190</y>
+     <width>221</width>
+     <height>141</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QListWidget {
+        background: #323232; /* Set background color */
+        border: none; /* Remove border */
+    }
+
+    QListWidget::item:selected {
+        background: darkgray; /* Background color for selected item */
+    }</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="GenerateSchedule">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>420</y>
+     <width>131</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Generate Schedule</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="ViewProgress">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>490</y>
+     <width>131</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>View Progress</string>
    </property>
   </widget>
  </widget>

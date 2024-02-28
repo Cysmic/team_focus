@@ -3,6 +3,8 @@
 #include <string>
 #include <queue>
 #include <QWidget>
+#include <QColor>
+#include <QRandomGenerator>
 #include <QMainWindow>
 #include <QStackedWidget>
 #include <QObject>
