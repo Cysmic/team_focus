@@ -1,8 +1,0 @@
-/Users/luciustheta/Documents/C++ Projects/Team_Focus/build/CMakeFiles/Team_Focus.dir
-/Users/luciustheta/Documents/C++ Projects/Team_Focus/build/CMakeFiles/edit_cache.dir
-/Users/luciustheta/Documents/C++ Projects/Team_Focus/build/CMakeFiles/rebuild_cache.dir
-/Users/luciustheta/Documents/C++ Projects/Team_Focus/build/CMakeFiles/list_install_components.dir
-/Users/luciustheta/Documents/C++ Projects/Team_Focus/build/CMakeFiles/install.dir
-/Users/luciustheta/Documents/C++ Projects/Team_Focus/build/CMakeFiles/install/local.dir
-/Users/luciustheta/Documents/C++ Projects/Team_Focus/build/CMakeFiles/install/strip.dir
-/Users/luciustheta/Documents/C++ Projects/Team_Focus/build/CMakeFiles/Team_Focus_autogen.dir
