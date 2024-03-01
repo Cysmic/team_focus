@@ -140,6 +140,7 @@ void DataManager::receivePlanInfo(std::vector<std::string> filters, int numTasks
                 }
                 if (!alreadyExists){
                     this->plan.push_back(createTaskString_Plan(tasks[j])); // revisit the encoding of this perhaps
+                    break;
                 }
             }
         }
